@@ -1,6 +1,15 @@
 from google import genai
 from google.genai import types
 import streamlit as st
+from prompts import SYSTEM_PROMPT,WELCOME_MESSAGE_TEMPLATE,SUMMARY_REQUEST_PROMPT
+GEMINI_API_KEY = st.secrets("GEMINI_API_KEY")
+
+@st.cache_resources
+def get_gemini_client():
+
+    return genai.client(api_key = GEMINI_API_KEY)
+gemini_client = get_gemini_client()
+MODEL_NAME = "gemini-3.8-flash"
 
 #step1 : onboarding (username and phone)
 if 'onboarded' not in st.session_state:

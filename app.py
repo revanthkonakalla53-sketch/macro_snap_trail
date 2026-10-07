@@ -2,12 +2,12 @@ from google import genai
 from google.genai import types
 import streamlit as st
 from prompts import SYSTEM_PROMPT,WELCOME_MESSAGE_TEMPLATE,SUMMARY_REQUEST_PROMPT
-GEMINI_API_KEY = st.secrets("GEMINI_API_KEY")
+GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
 
-@st.cache_resources
+@st.cache_resource
 def get_gemini_client():
 
-    return genai.client(api_key = GEMINI_API_KEY)
+    return genai.Client(api_key =st.secrets["GEMINI_API_KEY"])
 gemini_client = get_gemini_client()
 MODEL_NAME = "gemini-3.8-flash"
 
@@ -36,4 +36,5 @@ if 'onboarded' not in st.session_state:
             st.session_state.messages = []
             st.session_state.onboarded = True
             st.rerun()
-    st.stop()
+    st.stop()  
+
